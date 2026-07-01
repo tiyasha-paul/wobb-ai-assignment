@@ -107,3 +107,13 @@ Good luck!
 - Removed unnecessary `clickCount` state and console logging from `SearchPage.tsx`.
 - Removed unused `onProfileClick` prop and logic from `SearchPage.tsx`, `ProfileList.tsx`, and `ProfileCard.tsx` as it was only used for logging.
 - Verified TypeScript types and project folder structure.
+
+### Task 5 — UI/UX redesign
+- Implemented a completely new modern, clean design utilizing the provided color palette (`#BE1A1A`, `#D0311E`, `#F7D87F`, `#F8EBAB`).
+- Upgraded `index.css` by utilizing Tailwind CSS v4 `@theme` configuration and standardizing typography to modern sans-serif.
+- **Layout & Navigation:** Added a sticky header with brand-colored navigation links and an integrated "Saved List" counter badge.
+- **Responsive Grids:** Converted fixed-width `ProfileCard` items into a responsive CSS grid (`grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`) within `ProfileList.tsx` and `ListPage.tsx`.
+- **Card Design:** Overhauled `ProfileCard.tsx` with smooth hover transitions, box shadows, and an elegant rounded UI structure. 
+- **Accessibility:** Ensured distinct `focus-visible:ring-2` focus rings across interactive elements like buttons and cards for proper keyboard navigation.
+- **Enhanced Detail Page:** Redesigned `ProfileDetailPage.tsx` to include an avatar overlapping a cover gradient banner and reorganized stats into a clean metrics grid.
+- **Empty & Loading States:** Created polished, friendly empty state messages for search results and the list page, avoiding bare text screens. Added modern loading skeletons/spinners for `ProfileDetailPage`.

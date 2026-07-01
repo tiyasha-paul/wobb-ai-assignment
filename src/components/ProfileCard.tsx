@@ -42,34 +42,50 @@ export function ProfileCard({
   };
 
   return (
-    <div
+    <button
+      type="button"
       onClick={handleClick}
-      className="flex items-center gap-3 p-3 border border-gray-300 mb-2 cursor-pointer hover:bg-gray-50 w-[700px]"
+      className="flex flex-col text-left bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-brand-accent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 w-full group"
       data-search={searchQuery}
+      aria-label={`View ${profile.fullname}'s profile`}
     >
-      <img
-        src={profile.picture}
-        alt={profile.fullname}
-        className="w-12 h-12 rounded-full"
-      />
-      <div className="text-left flex-1">
-        <div className="font-bold">
-          @{profile.username}
-          <VerifiedBadge verified={profile.is_verified} />
+      <div className="p-5 flex-1 w-full">
+        <div className="flex items-start gap-4 mb-4">
+          <img
+            src={profile.picture}
+            alt={profile.fullname}
+            className="w-16 h-16 rounded-full border-2 border-white shadow-sm ring-2 ring-brand-light object-cover bg-gray-50"
+            loading="lazy"
+          />
+          <div className="flex-1 min-w-0">
+            <div className="font-bold text-gray-900 truncate text-lg flex items-center">
+              @{profile.username}
+              <VerifiedBadge verified={profile.is_verified} />
+            </div>
+            <div className="text-sm text-gray-500 truncate mb-1">{profile.fullname}</div>
+            <div className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-brand-light text-brand-dark">
+              {formatFollowers(profile.followers)} followers
+            </div>
+          </div>
         </div>
-        <div className="text-sm text-gray-600">{profile.fullname}</div>
-        <div className="text-sm">{formatFollowers(profile.followers)} followers</div>
       </div>
-      <button
-        onClick={handleListToggle}
-        className={`px-3 py-1 text-sm rounded transition-colors ${
-          isInList
-            ? "bg-green-100 text-green-700 border border-green-300 hover:bg-red-100 hover:text-red-700 hover:border-red-300"
-            : "bg-blue-600 text-white hover:bg-blue-700"
-        }`}
-      >
-        {isInList ? "Added ✓" : "Add to List"}
-      </button>
-    </div>
+      
+      <div className="px-5 py-3 bg-gray-50 border-t border-gray-100 flex justify-between items-center group-hover:bg-brand-light/20 transition-colors">
+        <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+          {platform}
+        </span>
+        <button
+          type="button"
+          onClick={handleListToggle}
+          className={`px-4 py-1.5 text-sm font-medium rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+            isInList
+              ? "bg-green-50 text-green-700 border border-green-200 hover:bg-red-50 hover:text-red-700 hover:border-red-200 focus:ring-red-500"
+              : "bg-brand text-white hover:bg-brand-dark shadow-sm focus:ring-brand"
+          }`}
+        >
+          {isInList ? "Added ✓" : "Add to List"}
+        </button>
+      </div>
+    </button>
   );
 }

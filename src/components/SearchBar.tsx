@@ -14,10 +14,11 @@ export function SearchBar({
   return (
     <input
       type="text"
-      className={`border px-3 py-2 rounded ${className}`}
+      className={`border px-3 py-2 rounded focus:outline-none ${className}`}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
+      aria-label="Search"
     />
   );
 }
