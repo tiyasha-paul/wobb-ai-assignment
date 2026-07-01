@@ -117,3 +117,21 @@ Good luck!
 - **Accessibility:** Ensured distinct `focus-visible:ring-2` focus rings across interactive elements like buttons and cards for proper keyboard navigation.
 - **Enhanced Detail Page:** Redesigned `ProfileDetailPage.tsx` to include an avatar overlapping a cover gradient banner and reorganized stats into a clean metrics grid.
 - **Empty & Loading States:** Created polished, friendly empty state messages for search results and the list page, avoiding bare text screens. Added modern loading skeletons/spinners for `ProfileDetailPage`.
+
+## Libraries Added
+- **`zustand`**: Chosen as the state management library for the "Saved List" feature. Justification: It provides a lightweight, boilerplate-free way to manage global state compared to React Context or Redux. Its built-in `persist` middleware made implementing `localStorage` persistence trivial.
+
+## Assumptions Made
+- **Routing structure**: Assumed that keeping the `?platform=...` query parameter when navigating to a profile detail page was the intended way to persist the platform context, as it's cleaner than passing it through global state for a simple read-only view.
+- **Empty state behavior**: Assumed that if a user deletes all saved profiles from the list, they should see a friendly empty state with a call-to-action to return to the search page.
+- **Data immutability**: Assumed the provided JSON data should remain read-only. We are not implementing any backend modifications or profile updates.
+
+## Trade-offs
+- **Performance vs Feature richness**: Prioritized building a robust, responsive UI and a solid global state architecture over implementing advanced performance techniques like virtualized lists. Given the small mock dataset (10 profiles per platform), virtualization would introduce unnecessary complexity without noticeable gains.
+- **Custom CSS vs Animation Libraries**: Decided against adding libraries like Framer Motion to keep the bundle size small and adhere to the "Keep it simple" constraint. Instead, utilized Tailwind CSS transition utilities for smooth, performant micro-interactions.
+
+## Remaining Improvements (With More Time)
+- **Unit and Integration Testing**: Implement tests using Vitest and React Testing Library to cover the Zustand store logic and critical UI components.
+- **Virtualization**: If the dataset were to grow significantly (e.g., hundreds of influencers), I would implement `react-window` or `@tanstack/react-virtual` for the `ProfileList` to ensure smooth scrolling.
+- **Deployment & CI/CD**: Set up a GitHub Actions workflow to automatically run the linting and build steps, and deploy the application to Vercel or Netlify.
+- **Advanced Filtering**: Add features to filter influencers by follower count ranges or engagement rate thresholds.
