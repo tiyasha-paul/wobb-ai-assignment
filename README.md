@@ -118,6 +118,9 @@ Good luck!
 - **Enhanced Detail Page:** Redesigned `ProfileDetailPage.tsx` to include an avatar overlapping a cover gradient banner and reorganized stats into a clean metrics grid.
 - **Empty & Loading States:** Created polished, friendly empty state messages for search results and the list page, avoiding bare text screens. Added modern loading skeletons/spinners for `ProfileDetailPage`.
 
+### Task 7 — Performance & extras
+- **Memoization:** Wrapped `ProfileCard` in `React.memo` to prevent unnecessary re-renders of the entire list when a single card interacts with the Zustand store.
+
 ## Libraries Added
 - **`zustand`**: Chosen as the state management library for the "Saved List" feature. Justification: It provides a lightweight, boilerplate-free way to manage global state compared to React Context or Redux. Its built-in `persist` middleware made implementing `localStorage` persistence trivial.
 

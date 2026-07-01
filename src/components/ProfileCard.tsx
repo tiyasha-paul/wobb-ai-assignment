@@ -1,3 +1,4 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import type { Platform, UserProfileSummary } from "@/types";
 import { VerifiedBadge } from "./VerifiedBadge";
@@ -10,7 +11,7 @@ interface ProfileCardProps {
   searchQuery: string;
 }
 
-export function ProfileCard({
+export const ProfileCard = React.memo(function ProfileCard({
   profile,
   platform,
   searchQuery,
