@@ -78,3 +78,14 @@ Complete the following as part of your submission:
 - **Bonus:** Deploying the app (e.g. Vercel, Netlify, GitHub Pages) is optional but will be considered a plus — include the live URL in your submission if you do
 
 Good luck!
+
+## Changelog
+
+### Task 1 — Fix existing bugs
+- Fixed case-sensitive username search in `filterProfiles()` — both username and fullname now match case-insensitively.
+- Fixed engagement rate bug: `ProfileDetailPage` used `rate * 10000` (wrong); now uses shared `formatEngagementRate()` (`rate * 100`).
+- Consolidated dead `SearchBar.tsx` — refactored `PlatformFilter` to import and use `SearchBar` instead of inline input.
+- Removed duplicate `formatFollowersLocal()` / `formatFollowersDetail()` — all components now use shared `formatFollowers()` from `formatters.ts`.
+- Added `alt` attributes to all `<img>` tags (`alt={profile.fullname}`).
+- Removed unused `react-beautiful-dnd` (incompatible with React 19, unmaintained).
+- Noted `w-[700px]` responsiveness issue in `ProfileCard` — to be fixed in Task 5.

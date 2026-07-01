@@ -1,5 +1,6 @@
 import type { Platform } from "@/types";
 import { PLATFORMS, getPlatformLabel } from "@/utils/dataHelpers";
+import { SearchBar } from "./SearchBar";
 
 interface PlatformFilterProps {
   selected: Platform;
@@ -30,12 +31,11 @@ export function PlatformFilter({
           </button>
         ))}
       </div>
-      <input
-        type="text"
+      <SearchBar
         value={searchQuery}
-        onChange={(e) => onSearchChange(e.target.value)}
+        onChange={onSearchChange}
         placeholder="Search by username or name..."
-        className="w-full max-w-md border px-3 py-2 rounded"
+        className="w-full max-w-md"
       />
     </div>
   );
