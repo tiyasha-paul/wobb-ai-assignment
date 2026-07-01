@@ -89,4 +89,4 @@ export const ProfileCard = React.memo(function ProfileCard({
       </div>
     </button>
   );
-}
+});
