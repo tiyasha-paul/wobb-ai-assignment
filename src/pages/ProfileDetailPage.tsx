@@ -2,18 +2,25 @@ import { useEffect, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { VerifiedBadge } from "@/components/VerifiedBadge";
-import type { FullUserProfile, ProfileDetailResponse } from "@/types";
+import type { FullUserProfile, Platform, ProfileDetailResponse } from "@/types";
 import { formatEngagementRate, formatFollowers } from "@/utils/formatters";
 import { loadProfileByUsername } from "@/utils/profileLoader";
+import { useListStore } from "@/store/useListStore";
 
 export function ProfileDetailPage() {
   const { username } = useParams<{ username: string }>();
   const [searchParams] = useSearchParams();
-  const platform = searchParams.get("platform") || "unknown";
+  const platform = (searchParams.get("platform") || "instagram") as Platform;
   const [profileData, setProfileData] = useState<ProfileDetailResponse | null>(
     null
   );
   const [loaded, setLoaded] = useState(false);
+
+  const addProfile = useListStore((s) => s.addProfile);
+  const removeProfile = useListStore((s) => s.removeProfile);
+  const isInList = useListStore((s) =>
+    username ? s.profiles.some((p) => p.username === username) : false
+  );
 
   useEffect(() => {
     if (!username) return;
@@ -55,6 +62,22 @@ export function ProfileDetailPage() {
   }
 
   const user: FullUserProfile = profileData.data.user_profile;
+
+  const handleListToggle = () => {
+    if (isInList) {
+      removeProfile(user.user_id);
+    } else {
+      addProfile({
+        user_id: user.user_id,
+        username: user.username,
+        fullname: user.fullname,
+        picture: user.picture,
+        followers: user.followers,
+        platform,
+        is_verified: user.is_verified,
+      });
+    }
+  };
 
   return (
     <Layout title={user.fullname}>
@@ -141,13 +164,15 @@ export function ProfileDetailPage() {
             </a>
           )}
 
-          {/* TODO: candidates must implement Add to List feature */}
-          {/* TODO: candidates must implement Add to List feature */}
           <button
-            disabled
-            className="block mt-4 px-4 py-2 bg-gray-300 text-gray-500 rounded cursor-not-allowed"
+            onClick={handleListToggle}
+            className={`block mt-4 px-4 py-2 rounded transition-colors ${
+              isInList
+                ? "bg-green-100 text-green-700 border border-green-300 hover:bg-red-100 hover:text-red-700 hover:border-red-300"
+                : "bg-blue-600 text-white hover:bg-blue-700"
+            }`}
           >
-            Add to List
+            {isInList ? "Added ✓" : "Add to List"}
           </button>
         </div>
       </div>

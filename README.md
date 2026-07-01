@@ -95,3 +95,10 @@ Good luck!
 - State holds an array of `SavedProfile` objects (user_id, username, fullname, picture, followers, platform, is_verified).
 - Actions: `addProfile` (deduplicates by user_id), `removeProfile`, `isInList`.
 - Persisted to localStorage under key `wobb-saved-profiles` so the list survives page refresh.
+
+### Task 3 — Wire up Add to List feature end-to-end
+- Updated `ProfileCard` and `ProfileDetailPage` buttons to dispatch `addProfile` / `removeProfile` actions.
+- Added visual toggle state (`Add to List` vs `Added ✓`).
+- Created `ListPage.tsx` at `/list` route displaying saved profiles with a remove button and an empty state.
+- Updated `Layout.tsx` header with a link to the `/list` page and a badge showing the number of saved items.
+- Registered `/list` route in `App.tsx`.
