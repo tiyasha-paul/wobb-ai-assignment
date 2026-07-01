@@ -89,3 +89,9 @@ Good luck!
 - Added `alt` attributes to all `<img>` tags (`alt={profile.fullname}`).
 - Removed unused `react-beautiful-dnd` (incompatible with React 19, unmaintained).
 - Noted `w-[700px]` responsiveness issue in `ProfileCard` — to be fixed in Task 5.
+
+### Task 2 — Zustand store for saved/list profiles
+- Created `src/store/useListStore.ts` with Zustand + `persist` middleware.
+- State holds an array of `SavedProfile` objects (user_id, username, fullname, picture, followers, platform, is_verified).
+- Actions: `addProfile` (deduplicates by user_id), `removeProfile`, `isInList`.
+- Persisted to localStorage under key `wobb-saved-profiles` so the list survives page refresh.
