@@ -8,14 +8,12 @@ interface ProfileCardProps {
   profile: UserProfileSummary;
   platform: Platform;
   searchQuery: string;
-  onProfileClick?: (username: string) => void;
 }
 
 export function ProfileCard({
   profile,
   platform,
   searchQuery,
-  onProfileClick,
 }: ProfileCardProps) {
   const navigate = useNavigate();
   const addProfile = useListStore((s) => s.addProfile);
@@ -23,7 +21,6 @@ export function ProfileCard({
   const isInList = useListStore((s) => s.isInList(profile.user_id));
 
   const handleClick = () => {
-    if (onProfileClick) onProfileClick(profile.username);
     navigate(`/profile/${profile.username}?platform=${platform}`);
   };
 

@@ -102,3 +102,8 @@ Good luck!
 - Created `ListPage.tsx` at `/list` route displaying saved profiles with a remove button and an empty state.
 - Updated `Layout.tsx` header with a link to the `/list` page and a badge showing the number of saved items.
 - Registered `/list` route in `App.tsx`.
+
+### Task 4 — Code quality pass
+- Removed unnecessary `clickCount` state and console logging from `SearchPage.tsx`.
+- Removed unused `onProfileClick` prop and logic from `SearchPage.tsx`, `ProfileList.tsx`, and `ProfileCard.tsx` as it was only used for logging.
+- Verified TypeScript types and project folder structure.
