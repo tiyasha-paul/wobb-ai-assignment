@@ -34,7 +34,7 @@ export function ProfileDetailPage() {
       <Layout>
         <div className="text-center py-20">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Invalid profile</h2>
-          <Link to="/" className="text-brand hover:underline font-medium">Return to search</Link>
+          <Link to={`/?platform=${platform}`} className="text-brand hover:underline font-medium">Return to search</Link>
         </div>
       </Layout>
     );
@@ -62,7 +62,7 @@ export function ProfileDetailPage() {
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Profile not found</h2>
           <p className="text-gray-500 mb-6">Could not load details for @{username}</p>
-          <Link to="/" className="inline-flex px-6 py-2 bg-brand text-white font-medium rounded-full hover:bg-brand-dark transition-colors">
+          <Link to={`/?platform=${platform}`} className="inline-flex px-6 py-2 bg-brand text-white font-medium rounded-full hover:bg-brand-dark transition-colors">
             Back to search
           </Link>
         </div>
@@ -102,7 +102,7 @@ export function ProfileDetailPage() {
     <Layout>
       <div className="max-w-4xl mx-auto">
         <Link 
-          to="/" 
+          to={`/?platform=${platform}`} 
           className="inline-flex items-center gap-2 text-sm font-black text-black hover:text-white hover:bg-black transition-all border-2 border-black bg-brand-light px-4 py-2 mb-6 uppercase shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:-translate-x-0.5 active:shadow-none active:translate-x-1 active:translate-y-1"
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5">

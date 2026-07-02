@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import type { Platform } from "@/types";
 import { Layout } from "@/components/Layout";
 import { PlatformFilter } from "@/components/PlatformFilter";
@@ -6,8 +6,25 @@ import { ProfileList } from "@/components/ProfileList";
 import { extractProfiles, filterProfiles } from "@/utils/dataHelpers";
 
 export function SearchPage() {
-  const [platform, setPlatform] = useState<Platform>("instagram");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const platform = (searchParams.get("platform") as Platform) || "instagram";
+  const searchQuery = searchParams.get("q") || "";
+
+  const handlePlatformChange = (p: Platform) => {
+    setSearchParams((prev) => {
+      prev.set("platform", p);
+      prev.delete("q");
+      return prev;
+    });
+  };
+
+  const handleSearchChange = (q: string) => {
+    setSearchParams((prev) => {
+      if (q) prev.set("q", q);
+      else prev.delete("q");
+      return prev;
+    });
+  };
 
   const allProfiles = extractProfiles(platform);
   const filtered = filterProfiles(allProfiles, searchQuery);
@@ -25,12 +42,9 @@ export function SearchPage() {
 
       <PlatformFilter
         selected={platform}
-        onChange={(p) => {
-          setPlatform(p);
-          setSearchQuery("");
-        }}
+        onChange={handlePlatformChange}
         searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
+        onSearchChange={handleSearchChange}
       />
 
       <div className="flex justify-between items-end mb-6 border-b-4 border-black pb-2 mt-8">
