@@ -55,8 +55,10 @@ export function ProfileDetailPage() {
     return (
       <Layout>
         <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-gray-300 shadow-sm mt-8 max-w-2xl mx-auto">
-          <div className="w-16 h-16 mx-auto mb-4 bg-red-50 rounded-full flex items-center justify-center text-red-500 text-2xl">
-            ⚠️
+          <div className="w-16 h-16 mx-auto mb-4 bg-red-50 rounded-full flex items-center justify-center text-red-500">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-8 h-8">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Profile not found</h2>
           <p className="text-gray-500 mb-6">Could not load details for @{username}</p>
@@ -115,20 +117,24 @@ export function ProfileDetailPage() {
             <div className="absolute -bottom-16 left-8">
               <img
                 src={user.picture}
-                alt={user.fullname}
-                className="w-32 h-32 rounded-full border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white object-cover"
+                alt={user.fullname || user.username}
+                className="w-32 h-32 flex-shrink-0 rounded-full border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white object-cover"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.fullname || user.username || 'U')}&background=F4F4F0&color=000&bold=true`;
+                }}
               />
             </div>
           </div>
           
           <div className="pt-20 px-8 pb-8">
             <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
-              <div className="flex-1">
-                <h1 className="text-4xl font-black text-black flex items-center gap-2 uppercase tracking-tight">
-                  {user.fullname}
-                  <VerifiedBadge verified={user.is_verified} />
+              <div className="flex-1 min-w-0">
+                <h1 className="text-4xl font-black text-black flex items-center gap-2 uppercase tracking-tight w-full">
+                  <span className="truncate min-w-0">{user.fullname || user.username}</span>
+                  <VerifiedBadge verified={!!user.is_verified} />
                 </h1>
-                <p className="text-xl font-bold text-black mb-2 uppercase tracking-tight">@{user.username}</p>
+                <p className="text-xl font-bold text-black mb-2 uppercase tracking-tight">@{user.username || 'unknown'}</p>
                 <div className="inline-block px-3 py-1 bg-white border-2 border-black text-black font-black uppercase tracking-tight mb-4 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
                   {platform}
                 </div>
@@ -178,7 +184,11 @@ export function ProfileDetailPage() {
 
             <div className="mt-10">
               <h3 className="text-2xl font-black text-black mb-6 flex items-center gap-2 uppercase tracking-tight">
-                <span className="w-10 h-10 bg-brand-light flex items-center justify-center text-brand border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">📊</span>
+                <span className="w-10 h-10 bg-brand-light flex items-center justify-center text-brand border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+                  </svg>
+                </span>
                 PERFORMANCE METRICS
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">

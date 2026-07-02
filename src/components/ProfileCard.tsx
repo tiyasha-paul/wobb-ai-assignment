@@ -19,7 +19,9 @@ export const ProfileCard = React.memo(function ProfileCard({
   const navigate = useNavigate();
   const addProfile = useListStore((s) => s.addProfile);
   const removeProfile = useListStore((s) => s.removeProfile);
-  const isInList = useListStore((s) => s.isInList(profile.user_id));
+  const isInList = useListStore((s) => s.isInList(profile?.user_id));
+
+  if (!profile) return null;
 
   const handleClick = () => {
     navigate(`/profile/${profile.username}?platform=${platform}`);
@@ -48,24 +50,28 @@ export const ProfileCard = React.memo(function ProfileCard({
       onClick={handleClick}
       className="flex flex-col text-left bg-white border-[3px] border-black overflow-hidden shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:-translate-x-0.5 active:shadow-none active:translate-x-1 active:translate-y-1 transition-all duration-150 focus:outline-none w-full group"
       data-search={searchQuery}
-      aria-label={`View ${profile.fullname}'s profile`}
+      aria-label={`View ${profile.fullname || profile.username}'s profile`}
     >
       <div className="p-5 flex-1 w-full">
         <div className="flex items-start gap-4 mb-4">
           <img
             src={profile.picture}
-            alt={profile.fullname}
-            className="w-16 h-16 rounded-full border-[3px] border-black object-cover bg-brand-light"
+            alt={profile.fullname || profile.username}
+            className="w-16 h-16 flex-shrink-0 rounded-full border-[3px] border-black object-cover bg-brand-light"
             loading="lazy"
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(profile.fullname || profile.username || 'U')}&background=F4F4F0&color=000&bold=true`;
+            }}
           />
-          <div className="flex-1 min-w-0">
-            <div className="font-black text-black truncate text-lg flex items-center uppercase tracking-tight">
-              @{profile.username}
-              <VerifiedBadge verified={profile.is_verified} />
+          <div className="flex-1 min-w-0 flex flex-col justify-center">
+            <div className="font-black text-black text-lg flex items-center uppercase tracking-tight w-full mb-1">
+              <span className="truncate min-w-0 flex-1">@{profile.username || 'unknown'}</span>
+              <VerifiedBadge verified={!!profile.is_verified} />
             </div>
-            <div className="text-sm font-bold text-gray-700 truncate mb-2">{profile.fullname}</div>
-            <div className="inline-flex items-center px-2 py-1 border-2 border-black text-xs font-black uppercase tracking-tight bg-brand-light text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-              {formatFollowers(profile.followers)} followers
+            <div className="text-sm font-bold text-gray-700 truncate mb-2">{profile.fullname || '-'}</div>
+            <div className="inline-flex self-start items-center px-2 py-1 border-2 border-black text-xs font-black uppercase tracking-tight bg-brand-light text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+              {formatFollowers(profile.followers || 0)} followers
             </div>
           </div>
         </div>
