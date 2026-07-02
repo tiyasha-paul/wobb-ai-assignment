@@ -1,3 +1,4 @@
+import { useMemo, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import type { Platform } from "@/types";
 import { Layout } from "@/components/Layout";
@@ -10,24 +11,24 @@ export function SearchPage() {
   const platform = (searchParams.get("platform") as Platform) || "instagram";
   const searchQuery = searchParams.get("q") || "";
 
-  const handlePlatformChange = (p: Platform) => {
+  const handlePlatformChange = useCallback((p: Platform) => {
     setSearchParams((prev) => {
       prev.set("platform", p);
       prev.delete("q");
       return prev;
     });
-  };
+  }, [setSearchParams]);
 
-  const handleSearchChange = (q: string) => {
+  const handleSearchChange = useCallback((q: string) => {
     setSearchParams((prev) => {
       if (q) prev.set("q", q);
       else prev.delete("q");
       return prev;
     });
-  };
+  }, [setSearchParams]);
 
-  const allProfiles = extractProfiles(platform);
-  const filtered = filterProfiles(allProfiles, searchQuery);
+  const allProfiles = useMemo(() => extractProfiles(platform), [platform]);
+  const filtered = useMemo(() => filterProfiles(allProfiles, searchQuery), [allProfiles, searchQuery]);
 
   return (
     <Layout>

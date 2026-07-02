@@ -118,8 +118,14 @@ Good luck!
 - **Enhanced Detail Page:** Redesigned `ProfileDetailPage.tsx` to include an avatar overlapping a cover gradient banner and reorganized stats into a clean metrics grid.
 - **Empty & Loading States:** Created polished, friendly empty state messages for search results and the list page, avoiding bare text screens. Added modern loading skeletons/spinners for `ProfileDetailPage`.
 
-### Task 7 — Performance & extras
-- **Memoization:** Wrapped `ProfileCard` in `React.memo` to prevent unnecessary re-renders of the entire list when a single card interacts with the Zustand store.
+### Task 6 — Performance
+- **Stable References:** Wrapped `handlePlatformChange` and `handleSearchChange` in `SearchPage.tsx` with `useCallback` so their references stay stable across renders. This ensures memoized child components (`PlatformFilter`, `ProfileCard`) aren't needlessly re-rendered.
+- **Derived Data:** Memoized `extractProfiles` and `filterProfiles` with `useMemo` so that filtering calculations only rerun when their dependencies (`platform`, `searchQuery`) actually change.
+- **Checked Prop Chains:** Verified that no inline arrow functions are passed from `ProfileList.tsx` or `ListPage.tsx` directly into the memoized `ProfileCard`.
+- **Zustand Stability:** Confirmed that Zustand's store actions (`addProfile`, `removeProfile`, `isInList`) are inherently stable by default and do not break memoization boundaries.
+
+### Task 7 — Extras
+- **Component Memoization:** Wrapped `ProfileCard` in `React.memo` to prevent unnecessary re-renders of the entire list when a single card interacts with the Zustand store.
 
 ## Libraries Added
 - **`zustand`**: Chosen as the state management library for the "Saved List" feature. Justification: It provides a lightweight, boilerplate-free way to manage global state compared to React Context or Redux. Its built-in `persist` middleware made implementing `localStorage` persistence trivial.
