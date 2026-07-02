@@ -4,6 +4,11 @@ const profileModules = import.meta.glob<ProfileDetailResponse>(
   "../assets/data/profiles/*.json"
 );
 
+export function hasProfileDetail(username: string): boolean {
+  const path = `../assets/data/profiles/${username}.json`;
+  return !!profileModules[path];
+}
+
 export async function loadProfileByUsername(
   username: string
 ): Promise<ProfileDetailResponse | null> {

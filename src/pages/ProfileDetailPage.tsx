@@ -130,7 +130,7 @@ export function ProfileDetailPage() {
           <div className="pt-20 px-8 pb-8">
             <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
               <div className="flex-1 min-w-0">
-                <h1 className="text-4xl font-black text-black flex items-center gap-2 uppercase tracking-tight w-full">
+                <h1 className="text-4xl font-black text-black flex items-center gap-2 uppercase tracking-tight">
                   <span className="truncate min-w-0">{user.fullname || user.username}</span>
                   <VerifiedBadge verified={!!user.is_verified} />
                 </h1>
@@ -140,7 +140,7 @@ export function ProfileDetailPage() {
                 </div>
                 
                 {user.description && (
-                  <p className="text-black font-bold leading-relaxed whitespace-pre-line max-w-2xl bg-brand-light p-4 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mt-2">
+                  <p className="text-black font-bold leading-relaxed whitespace-pre-line bg-brand-light p-4 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mt-2">
                     {user.description}
                   </p>
                 )}

@@ -3,6 +3,7 @@ import { Layout } from "@/components/Layout";
 import { VerifiedBadge } from "@/components/VerifiedBadge";
 import { useListStore } from "@/store/useListStore";
 import { formatFollowers } from "@/utils/formatters";
+import { hasProfileDetail } from "@/utils/profileLoader";
 
 export function ListPage() {
   const profiles = useListStore((s) => s.profiles);
@@ -48,40 +49,63 @@ export function ListPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {profiles.map((profile, index) => {
             if (!profile) return null;
-            return (
-            <div
-              key={profile.user_id || profile.username || index}
-              className="flex flex-col text-left bg-white border-[3px] border-black overflow-hidden shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:-translate-x-0.5 active:shadow-none active:translate-x-1 active:translate-y-1 transition-all duration-150 relative group"
-            >
-              <Link
-                to={`/profile/${profile.username}?platform=${profile.platform}`}
-                className="p-5 flex-1 w-full focus:outline-none"
-              >
-                <div className="flex items-start gap-4 mb-4">
-                  <img
-                    src={profile.picture}
-                    alt={profile.fullname || profile.username}
-                    className="w-16 h-16 flex-shrink-0 rounded-full border-[3px] border-black object-cover bg-brand-light"
-                    loading="lazy"
-                    onError={(e) => {
-                      e.currentTarget.onerror = null;
-                      e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(profile.fullname || profile.username || 'U')}&background=F4F4F0&color=000&bold=true`;
-                    }}
-                  />
-                  <div className="flex-1 min-w-0 flex flex-col justify-center">
-                    <div className="font-black text-black text-lg flex items-center uppercase tracking-tight w-full group-hover:text-brand transition-colors mb-1">
-                      <span className="truncate min-w-0 flex-1">@{profile.username || 'unknown'}</span>
-                      <VerifiedBadge verified={!!profile.is_verified} />
-                    </div>
-                    <div className="text-sm font-bold text-gray-700 truncate mb-2">
-                      {profile.fullname || '-'}
-                    </div>
+            const hasDetail = profile.username ? hasProfileDetail(profile.username) : false;
+            
+            const innerContent = (
+              <div className="flex items-start gap-4 mb-4">
+                <img
+                  src={profile.picture}
+                  alt={profile.fullname || profile.username}
+                  className="w-16 h-16 flex-shrink-0 rounded-full border-[3px] border-black object-cover bg-brand-light"
+                  loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(profile.fullname || profile.username || 'U')}&background=F4F4F0&color=000&bold=true`;
+                  }}
+                />
+                <div className="flex-1 min-w-0 flex flex-col justify-center">
+                  <div className="font-black text-black text-lg flex items-center uppercase tracking-tight group-hover:text-brand transition-colors mb-1">
+                    <span className="truncate min-w-0">@{profile.username || 'unknown'}</span>
+                    <VerifiedBadge verified={!!profile.is_verified} />
+                  </div>
+                  <div className="text-sm font-bold text-gray-700 truncate mb-2">
+                    {profile.fullname || '-'}
+                  </div>
+                  <div className="flex flex-wrap gap-2">
                     <div className="inline-flex self-start items-center px-2 py-1 border-2 border-black text-xs font-black uppercase tracking-tight bg-brand-light text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
                       {formatFollowers(profile.followers || 0)} followers
                     </div>
+                    {!hasDetail && (
+                      <div className="inline-flex self-start items-center px-2 py-1 border-2 border-black text-xs font-black uppercase tracking-tight bg-gray-100 text-gray-500 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                        Preview Only
+                      </div>
+                    )}
                   </div>
                 </div>
-              </Link>
+              </div>
+            );
+            
+            return (
+            <div
+              key={profile.user_id || profile.username || index}
+              className={`flex flex-col text-left bg-white border-[3px] border-black overflow-hidden shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-150 relative group ${
+                hasDetail 
+                  ? "hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:-translate-x-0.5 active:shadow-none active:translate-x-1 active:translate-y-1"
+                  : "opacity-90"
+              }`}
+            >
+              {hasDetail ? (
+                <Link
+                  to={`/profile/${profile.username}?platform=${profile.platform}`}
+                  className="p-5 flex-1 w-full focus:outline-none"
+                >
+                  {innerContent}
+                </Link>
+              ) : (
+                <div className="p-5 flex-1 w-full focus:outline-none">
+                  {innerContent}
+                </div>
+              )}
               <div className="px-5 py-3 bg-white border-t-[3px] border-black flex justify-between items-center group-hover:bg-brand-light transition-colors">
                 <span className="text-xs font-black text-black uppercase tracking-tight bg-white px-2 py-1 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
                   {profile.platform}
