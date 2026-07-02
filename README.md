@@ -90,6 +90,10 @@ npm run test
 - **Checked Prop Chains:** Verified that no inline arrow functions are passed from `ProfileList.tsx` or `ListPage.tsx` directly into the memoized `ProfileCard`.
 - **Zustand Stability:** Confirmed that Zustand's store actions (`addProfile`, `removeProfile`, `isInList`) are inherently stable by default and do not break memoization boundaries.
 
+### Reliability
+- **Error Boundary:** Implemented a top-level React Error Boundary with a friendly, neo-brutalist fallback UI to gracefully handle any unexpected rendering errors without crashing the entire app.
+- **Continuous Integration:** Set up a GitHub Actions workflow to automatically run tests, linting, and build validation on every push and pull request to the `main` branch.
+
 ## Libraries Added
 - **`zustand`**: Chosen as the state management library for the "Saved List" feature. Justification: It provides a lightweight, boilerplate-free way to manage global state compared to React Context or Redux. Its built-in `persist` middleware made implementing `localStorage` persistence trivial.
 
@@ -102,6 +106,5 @@ npm run test
 - **Performance vs Feature richness**: Prioritized building a robust, responsive UI and a solid global state architecture over implementing advanced performance techniques like virtualized lists. Given the small mock dataset (10 profiles per platform), virtualization would introduce unnecessary complexity without noticeable gains.
 - **Custom CSS vs Animation Libraries**: Decided against adding libraries like Framer Motion to keep the bundle size small and adhere to the "Keep it simple" constraint. Instead, utilized Tailwind CSS transition utilities for smooth, performant micro-interactions.
 
-## Remaining Improvements (With More Time)
+## Remaining Improvements
 - **Virtualization**: If the dataset were to grow significantly (e.g., hundreds of influencers), I would implement `react-window` or `@tanstack/react-virtual` for the `ProfileList` to ensure smooth scrolling.
-- **Deployment & CI/CD**: Set up a GitHub Actions workflow to automatically run the linting and build checks on every push.
