@@ -1,8 +1,21 @@
-# Wobb Frontend Assignment
+# Wobb Influencer Search
 
-**Live Deployment:** [https://wobb-ai-assignment-sigma.vercel.app/](https://wobb-ai-assignment-sigma.vercel.app/)
+A modern, responsive web application for discovering, sorting, and managing top influencers across major social platforms.
 
-A starter influencer search application built with **React**, **TypeScript**, **Vite**, and **Tailwind CSS**. This project is intentionally left in a rough-but-working state for candidates to improve.
+🚀 **Live Deployment:** [https://wobb-ai-assignment-sigma.vercel.app/](https://wobb-ai-assignment-sigma.vercel.app/)
+
+## Features
+
+- **Multi-Platform Search** — Filter top influencers across Instagram, YouTube, and TikTok.
+- **Advanced Filtering & Sorting** — Search by username or full name (case-insensitive) and dynamically sort results by follower count.
+- **Detailed Profiles** — View extended data, engagement rates, and custom avatars for individual influencers on dedicated profile pages.
+- **Save to List** — Build a persistent shortlist of your favorite creators for upcoming campaigns.
+- **Local Persistence** — Your saved list survives browser refreshes automatically.
+- **Neo-Brutalist UI** — A highly polished, accessible, and responsive interface featuring a unique wavy grid background and bold, high-contrast styling.
+
+## Tech Stack
+
+React, TypeScript, Vite, Tailwind CSS, Zustand, React Router
 
 ## Getting Started
 
@@ -13,55 +26,6 @@ npm run dev
 
 Open [http://localhost:5173](http://localhost:5173) to view the app.
 
-## What's Included
-
-- **Search / Dashboard** — filter influencers by platform (Instagram, YouTube, TikTok) and search by username or full name
-- **Profile Details** — click a profile to view extended data loaded from individual JSON files
-- **Routing** — `react-router-dom` with `/` (search) and `/profile/:username` (details)
-
-Sample data lives in:
-
-- `src/assets/data/search/` — platform search results (10 profiles each)
-- `src/assets/data/profiles/` — detailed profile JSON per username
-
-## How to Submit
-
-1. **Download or clone** this starter project to your machine.
-2. **Create a new repository** on your own GitHub account. Do not fork the original assignment repo — push your work to a repo you own.
-3. Complete the tasks below and push your changes to that repository.
-4. **Share the public GitHub repository URL** with us as your submission.
-
-### Deadline (strict)
-
-- **Due:** **2 July 2026, 2:00 PM IST** (Indian Standard Time, UTC+5:30)
-- **Any git commits made after this deadline will disqualify your submission.** We will only consider the repository state as of the deadline; late commits will not be reviewed.
-- Make sure your final work is pushed **before** the cutoff.
-
-## AI Usage
-
-You may use any AI tools (Cursor, ChatGPT, Claude, GitHub Copilot, etc.). We are evaluating your final solution and engineering decisions.
-
-## Your Tasks
-
-Complete the following as part of your submission:
-
-1. **Find and fix all bugs and quality issues** — the codebase contains intentional bugs and quality issues. Identify and resolve them.
-
-2. **Completely redesign the UI/UX** — replace the basic layout with a polished, modern interface. Focus on usability, visual hierarchy, and delight.
-
-3. **Replace React Context with Zustand** — when you implement state management for the selected list, use [Zustand](https://github.com/pmndrs/zustand) instead of React Context.
-
-4. **Implement "Select profile & Add to List"** — the disabled "Add to List" button is a stub. Build the full feature:
-   - Select / add profiles to a persistent list
-   - View and manage the selected list
-   - Handle duplicates appropriately
-
-5. **Improve code quality and project structure** — refactor as needed, add proper types, and follow React best practices.
-
-6. **Optimize performance** — apply sensible optimizations where appropriate.
-
-7. **Use any libraries you need** — you are not limited to the current stack. Choose tools that help you deliver a great result (UI kits, state managers, testing libraries, etc.).
-
 ## Scripts
 
 | Command        | Description              |
@@ -70,64 +34,53 @@ Complete the following as part of your submission:
 | `npm run build`| Production build         |
 | `npm run lint` | Run ESLint               |
 
-## Submission Notes
+## Project Structure
 
-- Document any assumptions or trade-offs in your README
-- Ensure `npm run build` passes before submitting
-- Focus on demonstrating your judgment — not every possible feature needs to be built, but the core assignment items should be addressed thoughtfully
-- Double-check that your repo is public (or that we have access) and that the link is included in your submission
-- Please make meaningful commits throughout your work. We may review your commit history.
-- **Bonus:** Deploying the app (e.g. Vercel, Netlify, GitHub Pages) is optional but will be considered a plus — **App successfully deployed to Vercel**: [wobb-ai-assignment-sigma.vercel.app](https://wobb-ai-assignment-sigma.vercel.app/)
+- `src/assets/` — Static assets and mock JSON data for search results and detailed profiles.
+- `src/components/` — Reusable UI components (`ProfileCard`, `PlatformFilter`, `Layout`, etc.).
+- `src/pages/` — Main route views (`SearchPage`, `ProfileDetailPage`, `ListPage`).
+- `src/store/` — Global state management (`useListStore.ts`).
+- `src/types/` — TypeScript interfaces and type definitions.
+- `src/utils/` — Helper functions for data formatting and filtering.
 
-Good luck!
+## What Was Built
 
-## Changelog
-
-### Task 1 — Fix existing bugs
+### Bug Fixes
 - Fixed case-sensitive username search in `filterProfiles()` — both username and fullname now match case-insensitively.
 - Fixed engagement rate bug: `ProfileDetailPage` used `rate * 10000` (wrong); now uses shared `formatEngagementRate()` (`rate * 100`).
 - Consolidated dead `SearchBar.tsx` — refactored `PlatformFilter` to import and use `SearchBar` instead of inline input.
 - Removed duplicate `formatFollowersLocal()` / `formatFollowersDetail()` — all components now use shared `formatFollowers()` from `formatters.ts`.
 - Added `alt` attributes to all `<img>` tags (`alt={profile.fullname}`).
 - Removed unused `react-beautiful-dnd` (incompatible with React 19, unmaintained).
-- Noted `w-[700px]` responsiveness issue in `ProfileCard` — to be fixed in Task 5.
 
-### Task 2 — Zustand store for saved/list profiles
-- Created `src/store/useListStore.ts` with Zustand + `persist` middleware.
-- State holds an array of `SavedProfile` objects (user_id, username, fullname, picture, followers, platform, is_verified).
-- Actions: `addProfile` (deduplicates by user_id), `removeProfile`, `isInList`.
-- Persisted to localStorage under key `wobb-saved-profiles` so the list survives page refresh.
-
-### Task 3 — Wire up Add to List feature end-to-end
-- Updated `ProfileCard` and `ProfileDetailPage` buttons to dispatch `addProfile` / `removeProfile` actions.
-- Added visual toggle state (`Add to List` vs `Added ✓`).
-- Created `ListPage.tsx` at `/list` route displaying saved profiles with a remove button and an empty state.
-- Updated `Layout.tsx` header with a link to the `/list` page and a badge showing the number of saved items.
-- Registered `/list` route in `App.tsx`.
-
-### Task 4 — Code quality pass
-- Removed unnecessary `clickCount` state and console logging from `SearchPage.tsx`.
-- Removed unused `onProfileClick` prop and logic from `SearchPage.tsx`, `ProfileList.tsx`, and `ProfileCard.tsx` as it was only used for logging.
-- Verified TypeScript types and project folder structure.
-
-### Task 5 — UI/UX redesign
-- Implemented a completely new modern, clean design utilizing the provided color palette (`#BE1A1A`, `#D0311E`, `#F7D87F`, `#F8EBAB`).
-- Upgraded `index.css` by utilizing Tailwind CSS v4 `@theme` configuration and standardizing typography to modern sans-serif.
-- **Layout & Navigation:** Added a sticky header with brand-colored navigation links and an integrated "Saved List" counter badge.
+### UI/UX Redesign
+- Replaced the basic layout with a completely new modern, clean Neo-Brutalist design utilizing Tailwind CSS v4 `@theme` configuration and standardizing typography to modern sans-serif.
+- **Layout & Navigation:** Added a sticky header with brand-colored navigation links and an integrated "Saved List" counter badge. Implemented a seamless SVG wavy grid background.
 - **Responsive Grids:** Converted fixed-width `ProfileCard` items into a responsive CSS grid (`grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`) within `ProfileList.tsx` and `ListPage.tsx`.
 - **Card Design:** Overhauled `ProfileCard.tsx` with smooth hover transitions, box shadows, and an elegant rounded UI structure. 
 - **Accessibility:** Ensured distinct `focus-visible:ring-2` focus rings across interactive elements like buttons and cards for proper keyboard navigation.
 - **Enhanced Detail Page:** Redesigned `ProfileDetailPage.tsx` to include an avatar overlapping a cover gradient banner and reorganized stats into a clean metrics grid.
 - **Empty & Loading States:** Created polished, friendly empty state messages for search results and the list page, avoiding bare text screens. Added modern loading skeletons/spinners for `ProfileDetailPage`.
 
-### Task 6 — Performance
+### State Management
+- Created `src/store/useListStore.ts` with Zustand + `persist` middleware.
+- State holds an array of `SavedProfile` objects (user_id, username, fullname, picture, followers, platform, is_verified).
+- Actions: `addProfile` (deduplicates by user_id), `removeProfile`, `isInList`.
+- Persisted to localStorage under key `wobb-saved-profiles` so the list survives page refresh.
+
+### Add to List Feature
+- Updated `ProfileCard` and `ProfileDetailPage` buttons to dispatch `addProfile` / `removeProfile` actions.
+- Added visual toggle state (`Add to List` vs `Added ✓`).
+- Created `ListPage.tsx` at `/list` route displaying saved profiles with a remove button and an empty state.
+- Updated `Layout.tsx` header with a link to the `/list` page and a badge showing the number of saved items.
+- Registered `/list` route in `App.tsx`.
+
+### Performance Optimizations
+- **Component Memoization:** Wrapped `ProfileCard` in `React.memo` to prevent unnecessary re-renders of the entire list when a single card interacts with the Zustand store.
 - **Stable References:** Wrapped `handlePlatformChange` and `handleSearchChange` in `SearchPage.tsx` with `useCallback` so their references stay stable across renders. This ensures memoized child components (`PlatformFilter`, `ProfileCard`) aren't needlessly re-rendered.
 - **Derived Data:** Memoized `extractProfiles` and `filterProfiles` with `useMemo` so that filtering calculations only rerun when their dependencies (`platform`, `searchQuery`) actually change.
 - **Checked Prop Chains:** Verified that no inline arrow functions are passed from `ProfileList.tsx` or `ListPage.tsx` directly into the memoized `ProfileCard`.
 - **Zustand Stability:** Confirmed that Zustand's store actions (`addProfile`, `removeProfile`, `isInList`) are inherently stable by default and do not break memoization boundaries.
-
-### Task 7 — Extras
-- **Component Memoization:** Wrapped `ProfileCard` in `React.memo` to prevent unnecessary re-renders of the entire list when a single card interacts with the Zustand store.
 
 ## Libraries Added
 - **`zustand`**: Chosen as the state management library for the "Saved List" feature. Justification: It provides a lightweight, boilerplate-free way to manage global state compared to React Context or Redux. Its built-in `persist` middleware made implementing `localStorage` persistence trivial.
