@@ -1,5 +1,7 @@
 # Wobb Frontend Assignment
 
+**Live Deployment:** [https://wobb-ai-assignment-sigma.vercel.app/](https://wobb-ai-assignment-sigma.vercel.app/)
+
 A starter influencer search application built with **React**, **TypeScript**, **Vite**, and **Tailwind CSS**. This project is intentionally left in a rough-but-working state for candidates to improve.
 
 ## Getting Started
@@ -75,7 +77,7 @@ Complete the following as part of your submission:
 - Focus on demonstrating your judgment — not every possible feature needs to be built, but the core assignment items should be addressed thoughtfully
 - Double-check that your repo is public (or that we have access) and that the link is included in your submission
 - Please make meaningful commits throughout your work. We may review your commit history.
-- **Bonus:** Deploying the app (e.g. Vercel, Netlify, GitHub Pages) is optional but will be considered a plus — include the live URL in your submission if you do
+- **Bonus:** Deploying the app (e.g. Vercel, Netlify, GitHub Pages) is optional but will be considered a plus — **App successfully deployed to Vercel**: [wobb-ai-assignment-sigma.vercel.app](https://wobb-ai-assignment-sigma.vercel.app/)
 
 Good luck!
 
