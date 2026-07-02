@@ -1,4 +1,4 @@
-import { useMemo, useCallback } from "react";
+import { useMemo, useCallback, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import type { Platform } from "@/types";
 import { Layout } from "@/components/Layout";
@@ -10,6 +10,7 @@ export function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const platform = (searchParams.get("platform") as Platform) || "instagram";
   const searchQuery = searchParams.get("q") || "";
+  const [sortOrder, setSortOrder] = useState<"desc" | "asc">("desc");
 
   const handlePlatformChange = useCallback((p: Platform) => {
     setSearchParams((prev) => {
@@ -29,6 +30,14 @@ export function SearchPage() {
 
   const allProfiles = useMemo(() => extractProfiles(platform), [platform]);
   const filtered = useMemo(() => filterProfiles(allProfiles, searchQuery), [allProfiles, searchQuery]);
+  
+  const sortedAndFiltered = useMemo(() => {
+    return [...filtered].sort((a, b) => {
+      const followersA = a.followers || 0;
+      const followersB = b.followers || 0;
+      return sortOrder === "desc" ? followersB - followersA : followersA - followersB;
+    });
+  }, [filtered, sortOrder]);
 
   return (
     <Layout>
@@ -48,17 +57,25 @@ export function SearchPage() {
         onSearchChange={handleSearchChange}
       />
 
-      <div className="flex justify-between items-end mb-6 border-b-4 border-black pb-2 mt-8">
+      <div className="flex justify-between items-end mb-6 border-b-4 border-black pb-2 mt-8 gap-4 flex-wrap">
         <h2 className="text-2xl font-black text-black uppercase tracking-tight">
           {searchQuery ? "SEARCH RESULTS" : "FEATURED PROFILES"}
         </h2>
-        <p className="text-sm font-black text-black bg-brand-light px-3 py-1 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] uppercase">
-          Showing {filtered.length} of {allProfiles.length}
-        </p>
+        <div className="flex items-center gap-3 flex-wrap">
+          <button
+            onClick={() => setSortOrder(s => s === "desc" ? "asc" : "desc")}
+            className="text-sm font-black text-black bg-white px-3 py-1 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-0.5 active:translate-y-0.5 transition-all uppercase flex items-center gap-1 cursor-pointer"
+          >
+            Followers: {sortOrder === "desc" ? "High to Low" : "Low to High"}
+          </button>
+          <p className="text-sm font-black text-black bg-brand-light px-3 py-1 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] uppercase whitespace-nowrap">
+            Showing {sortedAndFiltered.length} of {allProfiles.length}
+          </p>
+        </div>
       </div>
 
       <ProfileList
-        profiles={filtered}
+        profiles={sortedAndFiltered}
         platform={platform}
         searchQuery={searchQuery}
       />
