@@ -17,16 +17,16 @@ export function PlatformFilter({
 }: PlatformFilterProps) {
   return (
     <div className="mb-8 flex flex-col items-center max-w-2xl mx-auto space-y-6">
-      <div className="flex p-1 bg-gray-100 rounded-full shadow-inner border border-gray-200">
+      <div className="flex bg-white border-2 border-black p-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
         {PLATFORMS.map((p) => (
           <button
             key={p}
             type="button"
             onClick={() => onChange(p)}
-            className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-1 ${
+            className={`px-6 py-2 font-black uppercase tracking-tight transition-all duration-150 border-2 border-transparent ${
               selected === p
-                ? "bg-white text-brand shadow-sm"
-                : "text-gray-500 hover:text-gray-900 hover:bg-gray-200/50"
+                ? "bg-brand text-white border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+                : "text-black hover:bg-brand-light hover:border-black hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
             }`}
           >
             {getPlatformLabel(p)}
@@ -38,11 +38,11 @@ export function PlatformFilter({
         <SearchBar
           value={searchQuery}
           onChange={onSearchChange}
-          placeholder={`Search ${getPlatformLabel(selected)} influencers by username or name...`}
-          className="w-full pl-12 pr-4 py-3 bg-white border border-gray-300 rounded-xl shadow-sm focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all text-gray-900"
+          placeholder={`SEARCH ${getPlatformLabel(selected).toUpperCase()} INFLUENCERS...`}
+          className="w-full pl-12 pr-4 py-4 bg-white border-[3px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] focus:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] focus:-translate-y-0.5 focus:-translate-x-0.5 transition-all text-black font-bold uppercase placeholder-gray-500"
         />
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-black font-black">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
           </svg>
         </div>

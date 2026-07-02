@@ -101,22 +101,22 @@ export function ProfileDetailPage() {
       <div className="max-w-4xl mx-auto">
         <Link 
           to="/" 
-          className="inline-flex items-center gap-2 text-sm font-medium text-brand hover:text-brand-dark mb-6 transition-colors bg-brand-light/40 px-4 py-2 rounded-full"
+          className="inline-flex items-center gap-2 text-sm font-black text-black hover:text-white hover:bg-black transition-all border-2 border-black bg-brand-light px-4 py-2 mb-6 uppercase shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:-translate-x-0.5 active:shadow-none active:translate-x-1 active:translate-y-1"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
           </svg>
-          Back to search
+          BACK TO SEARCH
         </Link>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+        <div className="bg-white border-[3px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
           {/* Header/Cover Area */}
-          <div className="h-32 bg-gradient-to-r from-brand-accent via-brand-light to-white relative">
+          <div className="h-32 bg-brand-light border-b-[3px] border-black relative">
             <div className="absolute -bottom-16 left-8">
               <img
                 src={user.picture}
                 alt={user.fullname}
-                className="w-32 h-32 rounded-full border-4 border-white shadow-md bg-gray-50 object-cover"
+                className="w-32 h-32 rounded-full border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white object-cover"
               />
             </div>
           </div>
@@ -124,38 +124,38 @@ export function ProfileDetailPage() {
           <div className="pt-20 px-8 pb-8">
             <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
               <div className="flex-1">
-                <h1 className="text-3xl font-extrabold text-gray-900 flex items-center gap-2">
+                <h1 className="text-4xl font-black text-black flex items-center gap-2 uppercase tracking-tight">
                   {user.fullname}
                   <VerifiedBadge verified={user.is_verified} />
                 </h1>
-                <p className="text-lg text-gray-500 font-medium mb-1">@{user.username}</p>
-                <div className="inline-block px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-semibold uppercase tracking-wider mb-4">
+                <p className="text-xl font-bold text-black mb-2 uppercase tracking-tight">@{user.username}</p>
+                <div className="inline-block px-3 py-1 bg-white border-2 border-black text-black font-black uppercase tracking-tight mb-4 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
                   {platform}
                 </div>
                 
                 {user.description && (
-                  <p className="text-gray-700 leading-relaxed whitespace-pre-line max-w-2xl bg-gray-50 p-4 rounded-xl border border-gray-100">
+                  <p className="text-black font-bold leading-relaxed whitespace-pre-line max-w-2xl bg-brand-light p-4 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mt-2">
                     {user.description}
                   </p>
                 )}
               </div>
               
-              <div className="flex flex-col sm:flex-row md:flex-col gap-3 min-w-[200px]">
+              <div className="flex flex-col sm:flex-row md:flex-col gap-4 min-w-[200px]">
                 <button
                   onClick={handleListToggle}
-                  className={`w-full px-6 py-3 rounded-full font-bold shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 flex justify-center items-center gap-2 ${
+                  className={`w-full px-6 py-3 font-black uppercase tracking-tight border-[3px] border-black transition-all flex justify-center items-center gap-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:-translate-x-0.5 active:shadow-none active:translate-x-1 active:translate-y-1 ${
                     isInList
-                      ? "bg-green-50 text-green-700 border border-green-200 hover:bg-red-50 hover:text-red-700 hover:border-red-200 focus:ring-red-500"
-                      : "bg-brand text-white hover:bg-brand-dark focus:ring-brand hover:shadow-md"
+                      ? "bg-brand-accent text-black"
+                      : "bg-brand text-white"
                   }`}
                 >
                   {isInList ? (
                     <>
-                      <span>✓ Added to List</span>
+                      <span>✓ ADDED TO LIST</span>
                     </>
                   ) : (
                     <>
-                      <span>+ Add to List</span>
+                      <span>+ ADD TO LIST</span>
                     </>
                   )}
                 </button>
@@ -165,10 +165,10 @@ export function ProfileDetailPage() {
                     href={user.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full px-6 py-3 rounded-full font-bold bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 transition-colors flex justify-center items-center gap-2 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2"
+                    className="w-full px-6 py-3 font-black uppercase tracking-tight bg-white text-black border-[3px] border-black hover:bg-brand-light transition-colors flex justify-center items-center gap-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:-translate-x-0.5 active:shadow-none active:translate-x-1 active:translate-y-1"
                   >
-                    View Platform
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+                    VIEW PLATFORM
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                     </svg>
                   </a>
@@ -177,15 +177,15 @@ export function ProfileDetailPage() {
             </div>
 
             <div className="mt-10">
-              <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="w-8 h-8 rounded-lg bg-brand-light flex items-center justify-center text-brand">📊</span>
-                Performance Metrics
+              <h3 className="text-2xl font-black text-black mb-6 flex items-center gap-2 uppercase tracking-tight">
+                <span className="w-10 h-10 bg-brand-light flex items-center justify-center text-brand border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">📊</span>
+                PERFORMANCE METRICS
               </h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {statBoxes.map((stat, i) => (
-                  <div key={i} className="bg-white border border-gray-100 shadow-sm rounded-2xl p-5 hover:border-brand-accent hover:shadow-md transition-all group">
-                    <div className="text-sm font-medium text-gray-500 mb-1 group-hover:text-brand transition-colors">{stat.label}</div>
-                    <div className="text-2xl font-extrabold text-gray-900">{stat.value}</div>
+                  <div key={i} className="bg-white border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-5 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:-translate-x-0.5 transition-all group hover:bg-brand-light">
+                    <div className="text-sm font-bold text-black mb-1 uppercase tracking-tight">{stat.label}</div>
+                    <div className="text-3xl font-black text-black">{stat.value}</div>
                   </div>
                 ))}
               </div>

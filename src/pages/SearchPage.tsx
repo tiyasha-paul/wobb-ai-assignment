@@ -14,11 +14,11 @@ export function SearchPage() {
 
   return (
     <Layout>
-      <div className="text-center mb-10">
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight mb-4">
-          Discover Top <span className="text-brand">Creators</span>
+      <div className="text-center mb-10 border-[3px] border-black bg-white p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+        <h1 className="text-5xl sm:text-6xl font-black text-black tracking-tighter mb-4 uppercase">
+          Discover Top <span className="text-white bg-brand px-2 border-2 border-black inline-block shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] -rotate-2">Creators</span>
         </h1>
-        <p className="text-lg text-gray-500 max-w-2xl mx-auto">
+        <p className="text-lg text-black font-bold max-w-2xl mx-auto uppercase">
           Find and save the best influencers across Instagram, YouTube, and TikTok for your next campaign.
         </p>
       </div>
@@ -33,11 +33,11 @@ export function SearchPage() {
         onSearchChange={setSearchQuery}
       />
 
-      <div className="flex justify-between items-end mb-4 border-b border-gray-200 pb-2">
-        <h2 className="text-lg font-semibold text-gray-800">
-          {searchQuery ? "Search Results" : "Featured Profiles"}
+      <div className="flex justify-between items-end mb-6 border-b-4 border-black pb-2 mt-8">
+        <h2 className="text-2xl font-black text-black uppercase tracking-tight">
+          {searchQuery ? "SEARCH RESULTS" : "FEATURED PROFILES"}
         </h2>
-        <p className="text-sm font-medium text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+        <p className="text-sm font-black text-black bg-brand-light px-3 py-1 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] uppercase">
           Showing {filtered.length} of {allProfiles.length}
         </p>
       </div>
