@@ -2,7 +2,7 @@
 
 A modern, responsive web application for discovering, sorting, and managing top influencers across major social platforms.
 
-🚀 **Live Deployment:** [https://wobb-ai-assignment-sigma.vercel.app/](https://wobb-ai-assignment-sigma.vercel.app/)
+**Live Deployment:** [https://wobb-ai-assignment-sigma.vercel.app/](https://wobb-ai-assignment-sigma.vercel.app/)
 
 ## Features
 
@@ -25,6 +25,14 @@ npm run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173) to view the app.
+
+## Testing
+
+This project uses Vitest for unit testing. To run the test suite (covering the global Zustand store logic):
+
+```bash
+npm run test
+```
 
 ## Scripts
 
@@ -95,7 +103,5 @@ Open [http://localhost:5173](http://localhost:5173) to view the app.
 - **Custom CSS vs Animation Libraries**: Decided against adding libraries like Framer Motion to keep the bundle size small and adhere to the "Keep it simple" constraint. Instead, utilized Tailwind CSS transition utilities for smooth, performant micro-interactions.
 
 ## Remaining Improvements (With More Time)
-- **Unit and Integration Testing**: Implement tests using Vitest and React Testing Library to cover the Zustand store logic and critical UI components.
 - **Virtualization**: If the dataset were to grow significantly (e.g., hundreds of influencers), I would implement `react-window` or `@tanstack/react-virtual` for the `ProfileList` to ensure smooth scrolling.
-- **Deployment & CI/CD**: Set up a GitHub Actions workflow to automatically run the linting and build steps, and deploy the application to Vercel or Netlify.
-- **Advanced Filtering**: Add features to filter influencers by follower count ranges or engagement rate thresholds.
+- **Deployment & CI/CD**: Set up a GitHub Actions workflow to automatically run the linting and build checks on every push.
