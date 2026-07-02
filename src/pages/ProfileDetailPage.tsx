@@ -138,12 +138,6 @@ export function ProfileDetailPage() {
                 <div className="inline-block px-3 py-1 bg-white border-2 border-black text-black font-black uppercase tracking-tight mb-4 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
                   {platform}
                 </div>
-                
-                {user.description && (
-                  <p className="text-black font-bold leading-relaxed whitespace-pre-line bg-brand-light p-4 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mt-2">
-                    {user.description}
-                  </p>
-                )}
               </div>
               
               <div className="flex flex-col sm:flex-row md:flex-col gap-4 min-w-[200px]">
@@ -181,6 +175,12 @@ export function ProfileDetailPage() {
                 )}
               </div>
             </div>
+
+            {user.description && (
+              <p className="text-black font-bold leading-relaxed whitespace-pre-line bg-brand-light p-4 border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mt-8 w-full">
+                {user.description}
+              </p>
+            )}
 
             <div className="mt-10">
               <h3 className="text-2xl font-black text-black mb-6 flex items-center gap-2 uppercase tracking-tight">
