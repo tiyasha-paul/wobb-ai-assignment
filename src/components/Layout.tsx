@@ -12,7 +12,7 @@ export function Layout({ children, title }: LayoutProps) {
   const listCount = useListStore((s) => s.profiles.length);
 
   return (
-    <div className="min-h-screen bg-[#F4F4F0] font-sans">
+    <div className="min-h-screen bg-[#FFF0F5] font-sans" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='160' height='160' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 0 20 C 30 26, 130 14, 160 20 M 0 60 C 40 54, 120 66, 160 60 M 0 100 C 50 106, 110 94, 160 100 M 0 140 C 30 134, 130 146, 160 140 M 20 0 C 26 30, 14 130, 20 160 M 60 0 C 54 40, 66 120, 60 160 M 100 0 C 106 50, 94 110, 100 160 M 140 0 C 134 30, 146 130, 140 160' fill='none' stroke='rgba(0,0,0,0.1)' stroke-width='1.5'/%3E%3C/svg%3E\")" }}>
       <header className="bg-white border-b-4 border-black sticky top-0 z-50">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">

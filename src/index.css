@@ -2,7 +2,7 @@
 
 @theme {
   --color-brand-dark: #3730A3;
-  --color-brand: #4F46E5;
+  --color-brand: #000080;
   --color-brand-accent: #FF5A5F;
   --color-brand-light: #FFDE59;
   --color-surface: #ffffff;
@@ -12,7 +12,7 @@
 :root {
   --text: #000000;
   --text-h: #000000;
-  --bg: #F4F4F0;
+  --bg: #FFF0F5;
   --border: #000000;
   --sans: 'Inter', system-ui, -apple-system, sans-serif;
   
